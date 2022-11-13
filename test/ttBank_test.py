@@ -11,6 +11,4 @@ load_dotenv()
 
 def test_ttBank_instance():
 
-    ttBank = TTBank(42, os.getenv("PROVIDER_URL"))
-
-    print(ttBank.fetchToken())
+    ttBank = TTBank(5, os.getenv("PROVIDER_URL"))
