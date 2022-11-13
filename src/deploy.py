@@ -1,4 +1,4 @@
-from src.utils import *
+from src.network import *
 
 from web3 import Web3
 

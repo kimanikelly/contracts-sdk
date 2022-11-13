@@ -1,6 +1,6 @@
 from web3 import Web3
 
-from src.utils import *
+from src.network import *
 
 
 class TTBank:
@@ -14,8 +14,15 @@ class TTBank:
         self.contract = self.w3.eth.contract(
             address=ttBank_addresses(network_id), abi=ttBank_abi)
 
-    def fetchToken(self):
+    def fetch_address(self):
+
+        return self.contract.address
+
+    def fetch_token_address(self):
         return self.contract.functions.token().call()
 
-    def fetchAccount(self):
+    def fetch_account(self):
         return self.contract.functions.viewAccount().call()
+
+    def open_account(self, startingBalance: int):
+        return self.contract.functions.openAccount(startingBalance).transact()
