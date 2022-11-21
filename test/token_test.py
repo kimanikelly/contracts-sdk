@@ -9,5 +9,8 @@ def token():
 
 
 def test_fetch_name(token):
-
     assert (token.fetch_name() == "TEST TOKEN")
+
+
+def test_fetch_symbol(token):
+    assert (token.fetch_symbol() == "TT")

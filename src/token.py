@@ -19,3 +19,6 @@ class Token:
 
     def fetch_name(self):
         return self.contract.functions.name().call()
+
+    def fetch_symbol(self):
+        return self.contract.functions.symbol().call()
