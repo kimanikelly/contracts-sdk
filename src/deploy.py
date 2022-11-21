@@ -9,19 +9,25 @@ w3.eth.default_account = w3.eth.accounts[0]
 
 def deploy_token():
 
+    # Token.sol base class
     Token = w3.eth.contract(abi=token_abi, bytecode=token_bytecode)
 
+    # Token.sol deployment
     tx_hash = Token.constructor().transact()
 
+    # Token.sol deployment receipt
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
 
+    # Token.sol contract instance
     token = w3.eth.contract(
         address=tx_receipt.contractAddress,
         abi=token_abi
     )
 
+    # Token.sol initialization
     token.functions.initialize("TEST TOKEN", "TT").transact()
 
+    print("Token in deploy", token.address)
     return token
 
 
@@ -53,7 +59,6 @@ def deploy_contracts():
 
     ttBank.functions.initialize(token.address).transact()
 
-    print("TTBANK IN DEPLOY", ttBank.address)
     return {
         "token": token,
         "ttBank": ttBank
