@@ -16,3 +16,6 @@ class Token:
 
     def fetch_address(self):
         return self.contract.address
+
+    def fetch_name(self):
+        return self.contract.functions.name().call()
