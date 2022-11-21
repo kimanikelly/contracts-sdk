@@ -12,7 +12,7 @@ class Token:
         self.w3 = Web3(Web3.HTTPProvider(provider_url))
 
         self.contract = self.w3.eth.contract(
-            address=token_addresses(network_id), abi=token_abi)
+            address=contract_addresses(network_id)["token"], abi=token_abi)
 
     def fetch_address(self):
         return self.contract.address

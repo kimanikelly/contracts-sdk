@@ -25,19 +25,36 @@ def deploy_token():
     return token
 
 
-def deploy_ttBank():
+def deploy_contracts():
+
+    Token = w3.eth.contract(abi=token_abi, bytecode=token_bytecode)
+
+    token_tx_hash = Token.constructor().transact()
+
+    token_tx_receipt = w3.eth.wait_for_transaction_receipt(token_tx_hash)
+
+    token = w3.eth.contract(
+        address=token_tx_receipt.contractAddress,
+        abi=token_abi
+    )
+
+    token.functions.initialize("TEST TOKEN", "TT").transact()
 
     TTBank = w3.eth.contract(abi=ttBank_abi, bytecode=ttBank_bytecode)
 
-    tx_hash = TTBank.constructor().transact()
+    ttBank_tx_hash = TTBank.constructor().transact()
 
-    tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
+    ttBank_tx_receipt = w3.eth.wait_for_transaction_receipt(ttBank_tx_hash)
 
     ttBank = w3.eth.contract(
-        address=tx_receipt.contractAddress,
+        address=ttBank_tx_receipt.contractAddress,
         abi=ttBank_abi
     )
 
-    ttBank.functions.initialize(deploy_token().address).transact()
+    ttBank.functions.initialize(token.address).transact()
 
-    return ttBank
+    print("TTBANK IN DEPLOY", ttBank.address)
+    return {
+        "token": token,
+        "ttBank": ttBank
+    }
