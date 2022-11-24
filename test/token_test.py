@@ -4,6 +4,8 @@ from src.deploy import *
 from src.local_addresses import *
 import pytest
 
+mintAmount = 100
+
 
 @pytest.fixture
 def account1():
@@ -25,12 +27,25 @@ def test_token_instance(token, account1):
     assert (token.fetch_decimals() == 18)
 
 
-def test_total_supply(token, account1):
+def test_total_supply(token):
 
-    # Verfiy the total TEST TOKEN supply is 0 before minting
-    initial_total_supply = token.fetch_total_supply()
-    assert (initial_total_supply == 0)
+    pre_mint_supply = token.fetch_total_supply()
+    assert (pre_mint_supply == 0)
 
-    token.mint(10)
+    # 100 TEST TOKENS minted
+    token.mint(mintAmount)
 
-    print(token.fetch_balance_of(token.address))
+    post_mint_supply = token.fetch_total_supply()
+    assert (post_mint_supply == 100e18)
+
+
+def test_balance_of(token):
+
+    pre_mint_balance = token.fetch_balance_of(token.address)
+    assert (pre_mint_balance == 0)
+
+    # 100 TEST TOKENS minted
+    token.mint(mintAmount)
+
+    post_mint_balance = token.fetch_balance_of(token.address)
+    assert (post_mint_balance == 100e18)
