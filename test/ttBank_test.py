@@ -1,9 +1,22 @@
 from src.ttBank import *
-
 from src.token import *
 
 from src.deploy import *
+from src.local_addresses import *
+import pytest
 
 
-def test_open_account():
-    token = Token(1337, "http://localhost:8545")
+@pytest.fixture
+def token():
+
+    addresses["token_local_address"] = deploy_token().address
+
+    return Token(1337, "http://localhost:8545")
+
+
+@pytest.fixture
+def ttBank():
+
+    addresses["ttBank_local_address"] = deploy_ttBank().address
+
+    return TTBank(1337, "http://localhost:8545")

@@ -12,11 +12,9 @@ class TTBank:
         self.w3 = Web3(Web3.HTTPProvider(provider_url))
 
         self.contract = self.w3.eth.contract(
-            address=contract_addresses(network_id)["ttBank"], abi=ttBank_abi)
+            address=ttBank_addresses(network_id), abi=ttBank_abi)
 
-    def fetch_address(self):
-
-        return self.contract.address
+        self.address = self.contract.address
 
     def fetch_token_address(self):
         return self.contract.functions.token().call()
