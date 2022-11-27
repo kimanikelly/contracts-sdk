@@ -49,3 +49,14 @@ def test_balance_of(token):
 
     post_mint_balance = token.fetch_balance_of(token.address)
     assert (post_mint_balance == 100e18)
+
+
+def test_mint(token):
+    # 100 TEST TOKENS minted
+    token.mint(mintAmount)
+
+    post_mint_balance = token.fetch_balance_of(token.address)
+    assert (post_mint_balance == 100e18)
+
+    post_mint_supply = token.fetch_total_supply()
+    assert (post_mint_supply == 100e18)
