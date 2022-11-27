@@ -8,22 +8,30 @@ mintAmount = 100
 
 
 @pytest.fixture
-def account1():
+def account0():
     return w3.eth.accounts[0]
 
 
 @pytest.fixture
-def token(account1):
+def token(account0):
 
     addresses["token_local_address"] = deploy_token().address
 
-    return Token(account1, 1337, "http://localhost:8545")
+    return Token(account0, 1337, "http://localhost:8545")
 
 
-def test_token_instance(token, account1):
-    assert (token.fetch_owner() == account1)
+def test_token_instance(token, account0):
+
+    # Verify fetch_owner() returns the address of the account[0]
+    assert (token.fetch_owner() == account0)
+
+    # Verify fetch_name() returns the ERC-20 name set at deployment
     assert (token.fetch_name() == "TEST TOKEN")
+
+    # Verify fetch_symbol() returns the ERC-20 symbol set at deployment
     assert (token.fetch_symbol() == "TT")
+
+    # Verify fetch_decimals returns ERC-20 decimals
     assert (token.fetch_decimals() == 18)
 
 
