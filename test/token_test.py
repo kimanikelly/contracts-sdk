@@ -51,12 +51,14 @@ def test_total_supply(token):
 
 def test_balance_of(token):
 
+    # Verify fetch_balance_of() returns a zero token balance pre mint
     pre_mint_balance = token.fetch_balance_of(token.address)
     assert (pre_mint_balance == 0)
 
-    # 100 TEST TOKENS minted
+    # Verify mint() is able mint ERC-20 tokens only by the owner
     token.mint(mintAmount)
 
+    # Verify fetch_balance_of() returns the Token.sol ERC-20 balance post mint
     post_mint_balance = token.fetch_balance_of(token.address)
     assert (post_mint_balance == 100e18)
 
