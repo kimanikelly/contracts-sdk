@@ -37,12 +37,14 @@ def test_token_instance(token, account0):
 
 def test_total_supply(token):
 
+    # Verify the total supply is 0 at initial deployment pre mint
     pre_mint_supply = token.fetch_total_supply()
     assert (pre_mint_supply == 0)
 
-    # 100 TEST TOKENS minted
+    # Verify mint() is able mint ERC-20 tokens only by the owner
     token.mint(mintAmount)
 
+    # Verify fetch_total_supply returns and increases by the mint amount
     post_mint_supply = token.fetch_total_supply()
     assert (post_mint_supply == 100e18)
 
