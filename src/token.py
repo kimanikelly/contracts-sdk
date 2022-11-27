@@ -41,5 +41,11 @@ class Token:
     def transfer(self, to, amount):
         return self.contract.functions.transfer(to, amount).transact({"from": self.account})
 
+    def fetch_fund_amount(self):
+        return self.contract.functions.fundAmount().call()
+
     def mint(self, amount):
         return self.contract.functions.mint(amount).transact({"from":  self.account})
+
+    def set_fund_amount(self, amount):
+        return self.contract.functions.setFundAmount(amount).transact({"from": self.account})

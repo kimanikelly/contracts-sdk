@@ -5,11 +5,17 @@ from src.local_addresses import *
 import pytest
 
 mintAmount = 100
+fundAmount = 100
 
 
 @pytest.fixture
 def account0():
     return w3.eth.accounts[0]
+
+
+@pytest.fixture
+def account1():
+    return w3.eth.accounts[1]
 
 
 @pytest.fixture
@@ -72,3 +78,18 @@ def test_mint(token):
 
     post_mint_supply = token.fetch_total_supply()
     assert (post_mint_supply == 100e18)
+
+
+def test_fund_amount(token):
+
+    # Verify mint() is able mint ERC-20 tokens only by the owner
+    token.mint(mintAmount)
+
+    # Verify fetch_fund_amount returns 0 before the owner sets the amount
+    assert(token.fetch_fund_amount() == 0)
+
+    # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
+    token.set_fund_amount(fundAmount)
+
+    # Verify fetch_fund_amount returns the fundAmount after the owner sets the amount
+    assert(token.fetch_fund_amount() == 100e18)
