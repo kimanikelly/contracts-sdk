@@ -64,7 +64,7 @@ def test_balance_of(token):
 
 
 def test_mint(token):
-    # 100 TEST TOKENS minted
+    # Verify mint() is able mint ERC-20 tokens only by the owner
     token.mint(mintAmount)
 
     post_mint_balance = token.fetch_balance_of(token.address)

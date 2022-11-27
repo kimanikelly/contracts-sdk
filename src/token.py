@@ -38,8 +38,8 @@ class Token:
     def fetch_balance_of(self, address):
         return self.contract.functions.balanceOf(address).call()
 
-    def mint(self, amount):
-        return self.contract.functions.mint(amount).transact({"from":  self.account})
-
     def transfer(self, to, amount):
         return self.contract.functions.transfer(to, amount).transact({"from": self.account})
+
+    def mint(self, amount):
+        return self.contract.functions.mint(amount).transact({"from":  self.account})
