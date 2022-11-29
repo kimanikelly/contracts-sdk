@@ -55,3 +55,6 @@ class Token:
 
     def approve(self, spender, amount):
         return self.contract.functions.approve(spender, amount).transact({"from": self.account})
+
+    def allowance(self, owner, spender):
+        return self.contract.functions.allowance(owner, spender)
