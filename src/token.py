@@ -38,9 +38,6 @@ class Token:
     def fetch_balance_of(self, address):
         return self.contract.functions.balanceOf(address).call()
 
-    def transfer(self, to, amount):
-        return self.contract.functions.transfer(to, amount).transact({"from": self.account})
-
     def fetch_fund_amount(self):
         return self.contract.functions.fundAmount().call()
 
@@ -52,3 +49,9 @@ class Token:
 
     def fund_account(self):
         return self.contract.functions.fundAccount().transact({"from": self.account})
+
+    def transfer(self, to, amount):
+        return self.contract.functions.transfer(to, amount).transact({"from": self.account})
+
+    def approve(self, spender, amount):
+        return self.contract.functions.approve(spender, amount).transact({"from": self.account})
