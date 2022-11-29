@@ -93,3 +93,42 @@ def test_fund_amount(token):
 
     # Verify fetch_fund_amount returns the fundAmount after the owner sets the amount
     assert(token.fetch_fund_amount() == 100e18)
+
+
+def test_fund_account(token, account0):
+
+    # Token.sol balance should be 0 pre mint
+    token_pre_mint_balance = token.fetch_balance_of(token.address)
+    assert(token_pre_mint_balance == 0)
+
+    # Verify mint() is able mint ERC-20 tokens only by the owner
+    token.mint(mintAmount)
+
+    # Token.sol balance should be the mint amount post mint
+    token_post_mint_balance = token.fetch_balance_of(token.address)
+    assert(token_post_mint_balance == 100e18)
+
+    # Account0 should have a balance of 0 pre funding
+    account0_pre_fund_balance = token.fetch_balance_of(account0)
+    assert(account0_pre_fund_balance == 0)
+
+    pre_fund_amount = token.fetch_fund_amount()
+    assert(pre_fund_amount == 0)
+
+    # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
+    token.set_fund_amount(fundAmount)
+
+    post_fund_amount = token.fetch_fund_amount()
+    assert(post_fund_amount == 100e18)
+
+    # Account0 will be funded 100 TEST TOKENS from Token.sol
+    token.fund_account()
+
+    # Token.sol balance should decrease by the post_fund_amount
+    token_post_fund_balance = token.fetch_balance_of(token.address)
+    assert(token_post_fund_balance == token_post_mint_balance - post_fund_amount)
+
+    # Account0 balance should increase by the fundAmount
+    account0_post_fund_balance = token.fetch_balance_of(account0)
+    assert(account0_post_fund_balance ==
+           account0_pre_fund_balance + post_fund_amount)

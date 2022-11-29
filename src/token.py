@@ -49,3 +49,6 @@ class Token:
 
     def set_fund_amount(self, amount):
         return self.contract.functions.setFundAmount(amount).transact({"from": self.account})
+
+    def fund_account(self):
+        return self.contract.functions.fundAccount().transact({"from": self.account})
