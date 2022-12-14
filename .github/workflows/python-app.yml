@@ -36,6 +36,9 @@ jobs:
       - name: Start the local Blockchain with Ganache-ClI
         run: |
           npx ganache-cli &
+      - name: Sleep
+        run: |
+          sleep 5
         # run: |
         #   sleep 5
         # run: |
