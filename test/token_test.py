@@ -132,3 +132,12 @@ def test_fund_account(token, account0):
     account0_post_fund_balance = token.fetch_balance_of(account0)
     assert(account0_post_fund_balance ==
            account0_pre_fund_balance + post_fund_amount)
+
+
+def test_approval_allowance(token, account0, account1):
+
+    token.approve(account1, 100**10)
+
+    account0_allowance = token.allowance(account0, account1)
+
+    assert (account0_allowance == 100e18)
