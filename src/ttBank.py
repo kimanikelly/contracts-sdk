@@ -4,7 +4,11 @@ from src.network import *
 
 
 class TTBank:
-    def __init__(self, network_id, provider_url):
+    def __init__(self, account, network_id, provider_url):
+
+        # Connected Wallet
+        self.account = account
+
         self.network_id = network_id
 
         self.provider = provider_url
