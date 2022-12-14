@@ -16,6 +16,9 @@ class TTBank:
 
         self.address = self.contract.address
 
+    def fetch_owner(self):
+        return self.contract.functions.owner().call()
+
     def fetch_token_address(self):
         return self.contract.functions.token().call()
 
