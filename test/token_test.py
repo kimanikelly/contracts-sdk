@@ -1,4 +1,4 @@
-from src.token import *
+from src.token_erc20 import *
 
 from src.deploy import *
 from src.local_addresses import *

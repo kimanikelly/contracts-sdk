@@ -1,5 +1,5 @@
 from src.ttBank import *
-from src.token import *
+from src.token_erc20 import *
 
 from src.deploy import *
 from src.local_addresses import *
@@ -42,8 +42,4 @@ def token(account0):
 
 def test_ttbank_instance(ttBank, token, account0):
 
-    # Verify fetch_owner() returns the address of the account[0]
     assert (ttBank.fetch_owner() == account0)
-
-    # print(ttBank.fetch_token_address())
-    # print(token.address())

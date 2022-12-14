@@ -4,7 +4,7 @@ from src.network import *
 
 
 class Token:
-    def __init__(self, account, network_id, provider_url,):
+    def __init__(self, account, network_id, provider_url):
 
         # Connected Wallet
         self.account = account
