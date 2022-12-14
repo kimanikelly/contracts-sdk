@@ -38,7 +38,4 @@ jobs:
       - name: Test with pytest
         run: |
           npx ganache-cli &
-
-        run: |
-          echo testing
-      
+          sleep 10
