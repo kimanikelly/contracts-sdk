@@ -29,5 +29,17 @@ class TTBank:
     def fetch_account(self):
         return self.contract.functions.viewAccount().call()
 
-    def open_account(self, startingBalance: int):
-        return self.contract.functions.openAccount(startingBalance).transact()
+    def fetch_balance(self):
+        return self.contract.functions.viewBalance().call()
+
+    def fetch_bank_balance(self):
+        return self.contract.functions.bankBalance().call()
+
+    def open_account(self, starting_balance: int):
+        return self.contract.functions.openAccount(self.w3.toWei(starting_balance, "ether")).transact({"from": self.account})
+
+    def deposit(self, amount):
+        return self.contract.functions.deposit(self.w3.toWei(amount, "ether")).transact({"from": self.account})
+
+    def withdraw(self, amount):
+        return self.contract.functions.withdraw(self.w3.toWei(amount, "ether")).transact({"from": self.account})
