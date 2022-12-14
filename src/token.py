@@ -51,10 +51,10 @@ class Token:
         return self.contract.functions.fundAccount().transact({"from": self.account})
 
     def transfer(self, to, amount):
-        return self.contract.functions.transfer(to, amount).transact({"from": self.account})
+        return self.contract.functions.transfer(to, self.w3.toWei(amount, "ether")).transact({"from": self.account})
 
     def allowance(self, owner, spender):
         return self.contract.functions.allowance(owner, spender).call()
 
     def approve(self, spender, amount):
-        return self.contract.functions.approve(spender, amount).transact({"from": self.account})
+        return self.contract.functions.approve(spender, self.w3.toWei(amount, "ether")).transact({"from": self.account})
