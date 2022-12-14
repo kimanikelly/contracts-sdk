@@ -38,7 +38,7 @@ jobs:
           npx ganache-cli &
       - name: Sleep
         run: |
-          sleep
+          sleep 5
       - name: Pytest
         run: |
           pytest -s
