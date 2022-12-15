@@ -15,7 +15,8 @@ def deploy_token():
     Token = w3.eth.contract(abi=token_abi, bytecode=token_bytecode)
 
     # Token.sol deployment
-    tx_hash = Token.constructor().transact()
+    tx_hash = Token.constructor().transact({
+        "from": w3.eth.default_account})
 
     # Token.sol deployment receipt
     tx_receipt = w3.eth.wait_for_transaction_receipt(tx_hash)
@@ -27,7 +28,8 @@ def deploy_token():
     )
 
     # Token.sol initialization
-    token.functions.initialize("TEST TOKEN", "TT").transact()
+    token.functions.initialize("TEST TOKEN", "TT").transact({
+        "from": w3.eth.default_account})
 
     return token
 
@@ -36,7 +38,8 @@ def deploy_ttBank():
 
     TTBank = w3.eth.contract(abi=ttBank_abi, bytecode=ttBank_bytecode)
 
-    ttBank_tx_hash = TTBank.constructor().transact()
+    ttBank_tx_hash = TTBank.constructor().transact({
+        "from": w3.eth.default_account})
 
     ttBank_tx_receipt = w3.eth.wait_for_transaction_receipt(ttBank_tx_hash)
 
@@ -44,7 +47,7 @@ def deploy_ttBank():
         address=ttBank_tx_receipt.contractAddress,
         abi=ttBank_abi
     )
-
-    ttBank.functions.initialize(addresses["token_local_address"]).transact()
+    ttBank.functions.initialize(addresses["token_local_address"]).transact({
+        "from": w3.eth.default_account})
 
     return ttBank
