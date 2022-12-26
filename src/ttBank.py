@@ -33,6 +33,9 @@ class TTBank:
         return self.contract.functions.token().call()
 
     def fetch_account(self):
+        """
+        Returns the account details
+        """
         return self.contract.functions.viewAccount().call()
 
     def fetch_balance(self):
