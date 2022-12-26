@@ -32,23 +32,3 @@ def token(account0):
 @pytest.fixture
 def ttBank(account0):
     return TTBank(account0, 1337, "http://localhost:8545")
-
-
-def test_open_account(token, ttBank, account0):
-
-    print(token.address)
-
-    # print(token.address)
-
-    # print(token(account0).address)
-    # print(token(account0).address)
-
-    # token(account0).mint(mint_amount)
-
-    # token(account0).set_fund_amount(fund_amount)
-
-    # token(account0).fund_account()
-
-    # token(account0).approve(token(account0).address, starting_balance)
-
-    # ttBank(account0).open_account(starting_balance)
