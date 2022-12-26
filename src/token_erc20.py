@@ -36,7 +36,7 @@ class Token:
         self.address = self.contract.address
 
     def fetch_owner(self):
-        """Returns Token.sol owner address
+        """ Returns Token.sol owner address
 
          Returns:
              str: The owners Ethereum wallet address
