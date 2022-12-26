@@ -27,7 +27,9 @@ class TTBank:
         return self.contract.functions.owner().call()
 
     def fetch_token_address(self):
-
+        """
+        Returns the Token.sol contracta address
+        """
         return self.contract.functions.token().call()
 
     def fetch_account(self):
