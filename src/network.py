@@ -1,5 +1,5 @@
 
-from src.contractApi import *
+from src.contract_api import *
 
 from src.local_addresses import *
 
