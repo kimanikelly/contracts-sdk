@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-VERSION = "0.0.0"
+VERSION = "1.0.0"
 DESCRIPTION = "Smart Contract Software Development Kit"
 LONG_DESCRIPTION = "A Software Development Kit interacting with Solidity Smart Contracts, aiming to build Off-Chain applications on Ethereum compatible protocols."
 
