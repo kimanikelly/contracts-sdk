@@ -22,17 +22,3 @@ def ttBank_addresses(network_id: int):
     if network_id == 1337:
 
         return addresses["ttBank_local_address"]
-
-
-# def contract_addresses(network_id: int):
-
-#     if network_id == 5:
-
-#         return ttBank_goerli_address
-
-#     if network_id == 1337:
-
-#         return {
-#             "token": deploy_contracts()['ttBank'].address,
-#             "ttBank": deploy_contracts()['ttBank'].address
-#         }
