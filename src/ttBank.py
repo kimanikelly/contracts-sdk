@@ -5,15 +5,15 @@ from src.network import *
 
 class TTBank:
 
-    def __init__(self, account, network_id, provider_url):
+    def __init__(self, account: str, network_id: int, provider_url: str):
         """ Creates the off-chain abstraction of the TTBank.sol Smart Contract and its functionalities as a Class
 
         Args:
-            account(str): The Ethereum wallet used to connect and instantiate the TTBank class
+            account (str): The Ethereum wallet used to connect and instantiate the TTBank class
 
-            network_id(int): The numeric value used to connect with Ethereum compatible protocols
+            network_id (int): The numeric value used to connect with Ethereum compatible protocols
 
-            provider_url(str): The abstraction of a connection to the Ethereum network
+            provider_url( str): The abstraction of a connection to the Ethereum network
 
         """
 
@@ -87,7 +87,7 @@ class TTBank:
         """Allows the account to deposit TestTokens into their existing account balance
 
         Args:
-            amount(int): The amount of Test Tokens the account wants to deposit into their account balance
+            amount (int): The amount of Test Tokens the account wants to deposit into their account balance
 
         """
         return self.contract.functions.deposit(self.w3.toWei(amount, "ether")).transact({"from": self.account})
@@ -96,7 +96,7 @@ class TTBank:
         """Allows the signer to withdraw a specified amount Test Tokens from their bank account
 
         Args:
-            amount(int): The amount of Test Tokens to withdraw from the account
+            amount (int): The amount of Test Tokens to withdraw from the account
 
         """
         return self.contract.functions.withdraw(self.w3.toWei(amount, "ether")).transact({"from": self.account})

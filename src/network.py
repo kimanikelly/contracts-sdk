@@ -5,7 +5,14 @@ from src.local_addresses import *
 
 
 def token_addresses(network_id: int):
+    """ Returns the Token.sol address associated with the network_id
 
+    Args:
+        network_id (int): _description_
+
+    Returns:
+        _type_: _description_
+    """
     if network_id == 5:
         return token_goerli_address
 
