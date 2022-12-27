@@ -1,45 +1,3 @@
-# name: Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
-# on:
-#   push:
-#     branches: ["main"]
-# jobs:
-#   build-n-publish:
-#     name: Build and publish Python 🐍 distributions 📦 to PyPI and TestPyPI
-#     runs-on: ubuntu-latest
-#     steps:
-#     - uses: actions/checkout@main
-
-#     - name: Set up Python 3.10
-#       uses: actions/setup-python@v3
-#       with:
-#         python-version: "3.10"
-#         - name: Install pypa/build
-#       run: >-
-#         python -m
-#         pip install
-#         build
-#         --user
-#     - name: Build a binary wheel and a source tarball
-#       run: >-
-#         python -m
-#         build
-#         --sdist
-#         --wheel
-#         --outdir dist/
-#         .
-#           - name: Publish distribution 📦 to Test PyPI
-#       uses: pypa/gh-action-pypi-publish@release/v1
-#       with:
-#         username: __token__
-#         password: ${{ secrets.TEST_PYPI_API_TOKEN }}
-#         repository_url: https://test.pypi.org/legacy/
-#     - name: Publish distribution 📦 to PyPI
-#       if: startsWith(github.ref, 'refs/tags')
-#       uses: pypa/gh-action-pypi-publish@release/v1
-#       with:
-#         username: __token__
-#         password: ${{ secrets.PYPI_API_TOKEN }}
-
 name: Publish Python 🐍 distributions 📦 to PyPI and TestPyPI
 
 on:
@@ -74,11 +32,11 @@ jobs:
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           username: __token__
-          password: pypi-AgENdGVzdC5weXBpLm9yZwIkZjg2NGEwNWItY2IyYS00MGJlLWExOWQtMWYxOTk2ZjMyYWNjAAIqWzMsIjdiOGU5ZjIyLTRjM2YtNGY5MS1hYzdjLWViY2Q4ZjY3Y2Q3YSJdAAAGINBastavVjvDaN1CJDJKLDJbF25IwhamtBpl7bkyU2rA
+          password: ""
           repository_url: https://test.pypi.org/legacy/
       - name: Publish distribution 📦 to PyPI
         if: startsWith(github.ref, 'refs/tags')
         uses: pypa/gh-action-pypi-publish@release/v1
         with:
           username: __token__
-          password: pypi-AgEIcHlwaS5vcmcCJDhkNjNkZjUzLWQ0ZjAtNDlmNC1hMGM2LTlkNDA0MjkxNGQzOQACKlszLCIwZjE1MzY1OC0xY2QyLTQ1MzEtYTZiNi0xZGQ5ZTMzZTZhYTQiXQAABiCHqELDNy9wm4zYgL5ZMRSfmLEI5t6ptplxH169z3V_0Q
+          password: ""
