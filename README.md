@@ -1,1 +1,2 @@
-[![Python application](https://github.com/kimanikelly/ttBank-sdk-python/actions/workflows/python-app.yml/badge.svg)](https://github.com/kimanikelly/ttBank-sdk-python/actions/workflows/python-app.yml)
+[![Python application](https://github.com/kimanikelly/ttBank-sdk-python/actions/workflows/python-app.yml/badge.svg)](https://github.com/kimanikelly/ttBank-sdk-python/actions/workflows/python-app.yml) 
+[![Publish Python 🐍 distributions 📦 to PyPI and TestPyPI](https://github.com/kimanikelly/contracts-sdk/actions/workflows/python-publish.yml/badge.svg)](https://github.com/kimanikelly/contracts-sdk/actions/workflows/python-publish.yml)
