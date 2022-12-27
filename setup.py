@@ -5,7 +5,7 @@ DESCRIPTION = "Smart Contract Software Development Kit"
 LONG_DESCRIPTION = "A Software Development Kit interacting with Solidity Smart Contracts, aiming to build Off-Chain applications on Ethereum compatible protocols."
 
 setup(
-    name="smart-contract-sdk",
+    name="testing-0",
     version=VERSION,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
