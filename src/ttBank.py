@@ -60,7 +60,6 @@ class TTBank:
 
     def fetch_balance(self):
         """Returns the accounts Test Token balance
-
         Returns:
             int: The Test Token amount
         """
