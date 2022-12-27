@@ -5,7 +5,7 @@ DESCRIPTION = "Smart Contract Software Development Kit"
 LONG_DESCRIPTION = "A Software Development Kit interacting with Solidity Smart Contracts, aiming to build Off-Chain applications on Ethereum compatible protocols."
 
 setup(
-    name="Smart Contract SDK",
+    name="smart-contract-sdk",
     version=VERSION,
     description=DESCRIPTION,
     long_description=LONG_DESCRIPTION,
@@ -14,5 +14,4 @@ setup(
     license='MIT',
     packages=find_packages(),
     install_requires=[],
-    keywords="Smart Contract SDK"
 )
