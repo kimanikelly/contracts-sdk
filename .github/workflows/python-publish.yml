@@ -1,5 +1,4 @@
 name: Publish Python to PyPI and TestPyPI
-
 on:
   push:
     branches: ["main"]
