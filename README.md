@@ -38,3 +38,13 @@ Open another terminal and run the command
 ```
 pytest
 ```
+
+## Smart Contract Classes
+
+The Off-Chain Class abstraction of [Token.sol](https://github.com/kimanikelly/contracts/blob/main/contracts/Token.sol)
+
+- [Token](https://github.com/kimanikelly/contracts-sdk/blob/documentation/src/token_erc20.py)
+
+The Off-Chain Class abstraction of [TTBank.sol](https://github.com/kimanikelly/contracts/blob/main/contracts/TTBank.sol)
+
+- [TTBank](https://github.com/kimanikelly/contracts-sdk/blob/documentation/src/ttBank.py)
