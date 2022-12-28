@@ -8,7 +8,7 @@
 ## Source Code Installation
 
 ```
-https://github.com/kimanikelly/contracts-sdk.git
+git clone https://github.com/kimanikelly/contracts-sdk.git
 ```
 
 ## Source Code Dependency Installation
