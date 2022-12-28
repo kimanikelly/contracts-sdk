@@ -7,6 +7,12 @@
 
 The goal of this Software Development Kit was to build accessible abstractions from the [Smart Contracts](https://github.com/kimanikelly/contracts) repository as Python Classes that can be easily installed in a server-side environment and allow communication between the Off-Chain applications and Ethereum compatible protocols. The Smart Contract instances are pre-built through [Contracts-API](https://github.com/kimanikelly/contracts-api), making it easier for a user to connect and perform read/write functionality in other projects.
 
+## Test PyPI Package Installation
+
+```
+pip install -i https://test.pypi.org/simple/ smart-contracts-sdk
+```
+
 ## Source Code Installation
 
 ```
