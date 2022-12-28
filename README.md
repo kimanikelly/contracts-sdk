@@ -5,6 +5,8 @@
 
 ## Summary
 
+The goal of this Software Development Kit was to build accessible abstractions from the [Smart Contracts](https://github.com/kimanikelly/contracts) repository as Python Classes that can be easily installed in a server-side environment and allow communication between the Off-Chain applications and Ethereum compatible protocols.
+
 ## Source Code Installation
 
 ```
