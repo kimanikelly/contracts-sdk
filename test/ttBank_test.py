@@ -1,7 +1,7 @@
 from src.ttBank import *
 from src.token_erc20 import *
 
-from src.deploy import *
+from test.deploy import *
 from src.local_addresses import *
 import pytest
 
