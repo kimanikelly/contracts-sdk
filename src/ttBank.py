@@ -80,7 +80,11 @@ class TTBank:
             amount (int): The amount of Test Tokens the account wants to deposit into their account balance
 
         """
-        return self.contract.functions.openAccount(self.w3.toWei(starting_balance, "ether")).transact({"from": self.account})
+        return self.contract.functions.openAccount(self.w3.toWei(starting_balance, "ether")).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def deposit(self, amount: int):
         """Allows the account to deposit TestTokens into their existing account balance
