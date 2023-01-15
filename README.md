@@ -35,13 +35,13 @@ npm install ganache --global
 
 ## Source Code Testing
 
-Open one terminal and run the command
+Open one terminal and run the command to start the local Ethereum network
 
 ```
-ganache
+sh ganache.sh
 ```
 
-Open another terminal and run the command
+Open another terminal and run the command to start the unit tests
 
 ```
 pytest
@@ -51,8 +51,8 @@ pytest
 
 The Off-Chain Class abstraction of [Token.sol](https://github.com/kimanikelly/contracts/blob/main/contracts/Token.sol)
 
-- [Token](https://github.com/kimanikelly/contracts-sdk/blob/documentation/src/token_erc20.py)
+- [Token](https://github.com/kimanikelly/contracts-sdk/blob/main/src/token_erc20.py)
 
 The Off-Chain Class abstraction of [TTBank.sol](https://github.com/kimanikelly/contracts/blob/main/contracts/TTBank.sol)
 
-- [TTBank](https://github.com/kimanikelly/contracts-sdk/blob/documentation/src/ttBank.py)
+- [TTBank](https://github.com/kimanikelly/contracts-sdk/blob/main/src/ttBank.py)
