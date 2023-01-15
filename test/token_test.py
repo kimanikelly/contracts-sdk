@@ -4,8 +4,8 @@ from test.deploy import *
 from src.local_addresses import *
 import pytest
 
-mintAmount = 100
-fundAmount = 100
+mint_amount = 100
+fund_amount = 100
 
 account0_private_key = "0x76dc59c3f2cf8245cd3c191f0c40c72545bf361b8dd660276658e0e051294e45"
 
@@ -50,7 +50,7 @@ def test_total_supply(token):
     assert (pre_mint_supply == 0)
 
     signed_tx = w3.eth.account.sign_transaction(
-        token.mint(mintAmount), private_key=account0_private_key)
+        token.mint(mint_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
@@ -66,7 +66,7 @@ def test_balance_of(token):
     assert (pre_mint_balance == 0)
 
     signed_tx = w3.eth.account.sign_transaction(
-        token.mint(mintAmount), private_key=account0_private_key)
+        token.mint(mint_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
@@ -77,7 +77,7 @@ def test_balance_of(token):
 
 def test_mint(token):
     signed_tx = w3.eth.account.sign_transaction(
-        token.mint(mintAmount), private_key=account0_private_key)
+        token.mint(mint_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
@@ -91,7 +91,7 @@ def test_mint(token):
 def test_fund_amount(token):
 
     signed_tx = w3.eth.account.sign_transaction(
-        token.mint(mintAmount), private_key=account0_private_key)
+        token.mint(mint_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
@@ -100,11 +100,11 @@ def test_fund_amount(token):
 
     # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
     set_fund_amount_tx = w3.eth.account.sign_transaction(
-        token.set_fund_amount(fundAmount), private_key=account0_private_key)
+        token.set_fund_amount(fund_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(set_fund_amount_tx.rawTransaction)
 
-    # Verify fetch_fund_amount returns the fundAmount after the owner sets the amount
+    # Verify fetch_fund_amount returns the fund_amount after the owner sets the amount
     assert(token.fetch_fund_amount() == w3.toWei(100, "ether"))
 
 
@@ -115,7 +115,7 @@ def test_fund_account(token, account0):
     assert(token_pre_mint_balance == 0)
 
     signed_tx = w3.eth.account.sign_transaction(
-        token.mint(mintAmount), private_key=account0_private_key)
+        token.mint(mint_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
@@ -132,7 +132,7 @@ def test_fund_account(token, account0):
 
     # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
     set_fund_amount_tx = w3.eth.account.sign_transaction(
-        token.set_fund_amount(fundAmount), private_key=account0_private_key)
+        token.set_fund_amount(fund_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(set_fund_amount_tx.rawTransaction)
 
@@ -150,7 +150,7 @@ def test_fund_account(token, account0):
     token_post_fund_balance = token.fetch_balance_of(token.address)
     assert(token_post_fund_balance == token_post_mint_balance - post_fund_amount)
 
-    # Account0 balance should increase by the fundAmount
+    # Account0 balance should increase by the fund_amount
     account0_post_fund_balance = token.fetch_balance_of(account0)
     assert(account0_post_fund_balance ==
            account0_pre_fund_balance + post_fund_amount)
@@ -158,13 +158,13 @@ def test_fund_account(token, account0):
 
 def test_transfer(token, account0, account1):
     signed_tx = w3.eth.account.sign_transaction(
-        token.mint(mintAmount), private_key=account0_private_key)
+        token.mint(mint_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
   # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
     set_fund_amount_tx = w3.eth.account.sign_transaction(
-        token.set_fund_amount(fundAmount), private_key=account0_private_key)
+        token.set_fund_amount(fund_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(set_fund_amount_tx.rawTransaction)
 
@@ -180,7 +180,11 @@ def test_transfer(token, account0, account1):
     account1_pre_balance = token.fetch_balance_of(account1)
     assert(account1_pre_balance == 0)
 
-    token.transfer(account1, 10)
+    transfer_tx = w3.eth.account.sign_transaction(
+        token.transfer(account1, 10), private_key=account0_private_key
+    )
+
+    w3.eth.send_raw_transaction(transfer_tx.rawTransaction)
 
     account0_post_bal = token.fetch_balance_of(account0)
     assert(account0_post_bal == account0_pre_balance - w3.toWei(10, "ether"))
@@ -191,7 +195,10 @@ def test_transfer(token, account0, account1):
 
 def test_approval_allowance(token, account0, account1):
 
-    token.approve(account1, 100)
+    approve_tx = w3.eth.account.sign_transaction(
+        token.approve(account1, 100), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(approve_tx.rawTransaction)
 
     account0_allowance = token.allowance(account0, account1)
 

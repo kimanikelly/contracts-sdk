@@ -126,10 +126,18 @@ class Token:
         })
 
     def transfer(self, to: str, amount: int):
-        return self.contract.functions.transfer(to, self.w3.toWei(amount, "ether")).transact({"from": self.account})
+        return self.contract.functions.transfer(to, self.w3.toWei(amount, "ether")).buildTransaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def allowance(self, owner: str, spender: str):
         return self.contract.functions.allowance(owner, spender).call()
 
     def approve(self, spender: str, amount: int):
-        return self.contract.functions.approve(spender, self.w3.toWei(amount, "ether")).transact({"from": self.account})
+        return self.contract.functions.approve(spender, self.w3.toWei(amount, "ether")).buildTransaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
