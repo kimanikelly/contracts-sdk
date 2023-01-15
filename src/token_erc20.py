@@ -96,7 +96,11 @@ class Token:
             Args:
             amount (int): The amount of ERC-20 token the owner can allocate
         """
-        return self.contract.functions.mint(amount).transact({"from":  self.account})
+        return self.contract.functions.mint(amount).buildTransaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def set_fund_amount(self, amount: int):
         """ Sets the amount of ERC-20 tokens that can be transferred to the account. This function can only

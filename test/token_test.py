@@ -7,6 +7,8 @@ import pytest
 mintAmount = 100
 fundAmount = 100
 
+account0_private_key = "0x76dc59c3f2cf8245cd3c191f0c40c72545bf361b8dd660276658e0e051294e45"
+
 
 @pytest.fixture
 def account0():
@@ -47,8 +49,10 @@ def test_total_supply(token):
     pre_mint_supply = token.fetch_total_supply()
     assert (pre_mint_supply == 0)
 
-    # Verify mint() is able mint ERC-20 tokens only by the owner
-    token.mint(mintAmount)
+    signed_tx = w3.eth.account.sign_transaction(
+        token.mint(mintAmount), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
     # Verify fetch_total_supply returns and increases by the mint amount
     post_mint_supply = token.fetch_total_supply()
@@ -61,8 +65,10 @@ def test_balance_of(token):
     pre_mint_balance = token.fetch_balance_of(token.address)
     assert (pre_mint_balance == 0)
 
-    # Verify mint() is able mint ERC-20 tokens only by the owner
-    token.mint(mintAmount)
+    signed_tx = w3.eth.account.sign_transaction(
+        token.mint(mintAmount), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
     # Verify fetch_balance_of() returns the Token.sol ERC-20 balance post mint
     post_mint_balance = token.fetch_balance_of(token.address)
@@ -70,8 +76,10 @@ def test_balance_of(token):
 
 
 def test_mint(token):
-    # Verify mint() is able mint ERC-20 tokens only by the owner
-    token.mint(mintAmount)
+    signed_tx = w3.eth.account.sign_transaction(
+        token.mint(mintAmount), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
     post_mint_balance = token.fetch_balance_of(token.address)
     assert (post_mint_balance == w3.toWei(100, "ether"))
@@ -82,8 +90,10 @@ def test_mint(token):
 
 def test_fund_amount(token):
 
-    # Verify mint() is able mint ERC-20 tokens only by the owner
-    token.mint(mintAmount)
+    signed_tx = w3.eth.account.sign_transaction(
+        token.mint(mintAmount), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
     # Verify fetch_fund_amount returns 0 before the owner sets the amount
     assert(token.fetch_fund_amount() == 0)
@@ -101,8 +111,10 @@ def test_fund_account(token, account0):
     token_pre_mint_balance = token.fetch_balance_of(token.address)
     assert(token_pre_mint_balance == 0)
 
-    # Verify mint() is able mint ERC-20 tokens only by the owner
-    token.mint(mintAmount)
+    signed_tx = w3.eth.account.sign_transaction(
+        token.mint(mintAmount), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
     # Token.sol balance should be the mint amount post mint
     token_post_mint_balance = token.fetch_balance_of(token.address)
@@ -135,8 +147,10 @@ def test_fund_account(token, account0):
 
 
 def test_transfer(token, account0, account1):
-    # Verify mint() is able mint ERC-20 tokens only by the owner
-    token.mint(mintAmount)
+    signed_tx = w3.eth.account.sign_transaction(
+        token.mint(mintAmount), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
     # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
     token.set_fund_amount(fundAmount)
