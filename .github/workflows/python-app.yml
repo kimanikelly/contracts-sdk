@@ -35,6 +35,6 @@ jobs:
           flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
       - name: Test with pytest
         run: |
-          ganache -m "sketch eagle team green identify turn opera vital mind fit nerve ostrich" &
+          npx ganache -m "sketch eagle team green identify turn opera vital mind fit nerve ostrich" &
           sleep 5
           pytest
