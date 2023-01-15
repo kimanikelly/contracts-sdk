@@ -109,7 +109,11 @@ class Token:
             Args:
             amount (int): The amount of ERC-20 token the owner set
         """
-        return self.contract.functions.setFundAmount(amount).transact({"from": self.account})
+        return self.contract.functions.setFundAmount(amount).buildTransaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def fund_account(self):
         """ Funds the msg.sender the fund amount.
