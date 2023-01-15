@@ -2,6 +2,7 @@ from src.token_erc20 import *
 
 from test.deploy import *
 from src.local_addresses import *
+from hexbytes import HexBytes
 import pytest
 
 mint_amount = 100
