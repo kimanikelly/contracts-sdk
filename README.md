@@ -35,13 +35,13 @@ npm install ganache --global
 
 ## Source Code Testing
 
-Open one terminal and run the command
+Open one terminal and run the command to start the local Ethereum network
 
 ```
-ganache
+sh ganache.sh
 ```
 
-Open another terminal and run the command
+Open another terminal and run the command to start the unit tests
 
 ```
 pytest
