@@ -119,7 +119,11 @@ class Token:
         """ Funds the msg.sender the fund amount.
 
         """
-        return self.contract.functions.fundAccount().transact({"from": self.account})
+        return self.contract.functions.fundAccount().buildTransaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def transfer(self, to: str, amount: int):
         return self.contract.functions.transfer(to, self.w3.toWei(amount, "ether")).transact({"from": self.account})

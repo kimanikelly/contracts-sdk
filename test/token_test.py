@@ -99,10 +99,10 @@ def test_fund_amount(token):
     assert(token.fetch_fund_amount() == 0)
 
     # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
-    signed_tx = w3.eth.account.sign_transaction(
+    set_fund_amount_tx = w3.eth.account.sign_transaction(
         token.set_fund_amount(fundAmount), private_key=account0_private_key)
 
-    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    w3.eth.send_raw_transaction(set_fund_amount_tx.rawTransaction)
 
     # Verify fetch_fund_amount returns the fundAmount after the owner sets the amount
     assert(token.fetch_fund_amount() == w3.toWei(100, "ether"))
@@ -131,16 +131,20 @@ def test_fund_account(token, account0):
     assert(pre_fund_amount == 0)
 
     # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
-    signed_tx = w3.eth.account.sign_transaction(
+    set_fund_amount_tx = w3.eth.account.sign_transaction(
         token.set_fund_amount(fundAmount), private_key=account0_private_key)
 
-    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    w3.eth.send_raw_transaction(set_fund_amount_tx.rawTransaction)
 
     post_fund_amount = token.fetch_fund_amount()
     assert(post_fund_amount == w3.toWei(100, "ether"))
 
     # Account0 will be funded 100 TEST TOKENS from Token.sol
-    token.fund_account()
+    fund_account_tx = w3.eth.account.sign_transaction(
+        token.fund_account(), private_key=account0_private_key
+    )
+
+    w3.eth.send_raw_transaction(fund_account_tx.rawTransaction)
 
     # Token.sol balance should decrease by the post_fund_amount
     token_post_fund_balance = token.fetch_balance_of(token.address)
@@ -159,13 +163,17 @@ def test_transfer(token, account0, account1):
     w3.eth.send_raw_transaction(signed_tx.rawTransaction)
 
   # Verify set_fund_amounts sets the amount of TEST TOKENS an account receives
-    signed_tx = w3.eth.account.sign_transaction(
+    set_fund_amount_tx = w3.eth.account.sign_transaction(
         token.set_fund_amount(fundAmount), private_key=account0_private_key)
 
-    w3.eth.send_raw_transaction(signed_tx.rawTransaction)
+    w3.eth.send_raw_transaction(set_fund_amount_tx.rawTransaction)
 
-    # Account0 will be funded 100 TEST TOKENS from Token.sol
-    token.fund_account()
+  # Account0 will be funded 100 TEST TOKENS from Token.sol
+    fund_account_tx = w3.eth.account.sign_transaction(
+        token.fund_account(), private_key=account0_private_key
+    )
+
+    w3.eth.send_raw_transaction(fund_account_tx.rawTransaction)
 
     account0_pre_balance = token.fetch_balance_of(account0)
 
