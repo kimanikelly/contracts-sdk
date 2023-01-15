@@ -96,7 +96,11 @@ class Token:
             Args:
             amount (int): The amount of ERC-20 token the owner can allocate
         """
-        return self.contract.functions.mint(amount).transact({"from":  self.account})
+        return self.contract.functions.mint(amount).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def set_fund_amount(self, amount: int):
         """ Sets the amount of ERC-20 tokens that can be transferred to the account. This function can only
@@ -105,19 +109,35 @@ class Token:
             Args:
             amount (int): The amount of ERC-20 token the owner set
         """
-        return self.contract.functions.setFundAmount(amount).transact({"from": self.account})
+        return self.contract.functions.setFundAmount(amount).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def fund_account(self):
         """ Funds the msg.sender the fund amount.
 
         """
-        return self.contract.functions.fundAccount().transact({"from": self.account})
+        return self.contract.functions.fundAccount().build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def transfer(self, to: str, amount: int):
-        return self.contract.functions.transfer(to, self.w3.toWei(amount, "ether")).transact({"from": self.account})
+        return self.contract.functions.transfer(to, self.w3.toWei(amount, "ether")).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def allowance(self, owner: str, spender: str):
         return self.contract.functions.allowance(owner, spender).call()
 
     def approve(self, spender: str, amount: int):
-        return self.contract.functions.approve(spender, self.w3.toWei(amount, "ether")).transact({"from": self.account})
+        return self.contract.functions.approve(spender, self.w3.toWei(amount, "ether")).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
