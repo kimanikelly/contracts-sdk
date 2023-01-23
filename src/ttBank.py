@@ -93,7 +93,11 @@ class TTBank:
             amount (int): The amount of Test Tokens the account wants to deposit into their account balance
 
         """
-        return self.contract.functions.deposit(self.w3.toWei(amount, "ether")).transact({"from": self.account})
+        return self.contract.functions.deposit(self.w3.toWei(amount, "ether")).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def withdraw(self, amount: int):
         """Allows the signer to withdraw a specified amount Test Tokens from their bank account
