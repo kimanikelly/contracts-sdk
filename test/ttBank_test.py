@@ -93,3 +93,7 @@ def test_open_account(ttBank, token, account0):
     assert(on_chain_acct[1] == account0)
 
     assert(on_chain_acct[2] == w3.toWei(starting_balance, "ether"))
+
+    on_chain_acct_balance = ttBank.fetch_account_balance()
+
+    assert(on_chain_acct_balance == w3.toWei(starting_balance, "ether"))
