@@ -47,6 +47,7 @@ def deploy_ttBank():
         address=ttBank_tx_receipt.contractAddress,
         abi=ttBank_abi
     )
+
     ttBank.functions.initialize(addresses["token_local_address"]).transact({
         "from": w3.eth.default_account})
 

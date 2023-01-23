@@ -56,14 +56,14 @@ class TTBank:
         """Returns the accounts details
 
         """
-        return self.contract.functions.viewAccount().call()
+        return self.contract.functions.viewAccount().call({"from": self.account})
 
-    def fetch_balance(self):
+    def fetch_account_balance(self):
         """Returns the accounts Test Token balance
         Returns:
             int: The Test Token amount
         """
-        return self.contract.functions.viewBalance().call()
+        return self.contract.functions.viewBalance().call({"from": self.account})
 
     def fetch_bank_balance(self):
         """Returns the Test Token balance within TTBank.sol
@@ -71,7 +71,7 @@ class TTBank:
         Returns:
             int: The Test Token amount
         """
-        return self.contract.functions.bankBalance().call()
+        return self.contract.functions.bankBalance().call({"from": self.account})
 
     def open_account(self, starting_balance: int):
         """Allows the account to open an account with TTBank and make an initial deposit
