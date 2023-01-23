@@ -106,4 +106,9 @@ class TTBank:
             amount (int): The amount of Test Tokens to withdraw from the account
 
         """
-        return self.contract.functions.withdraw(self.w3.toWei(amount, "ether")).transact({"from": self.account})
+
+        return self.contract.functions.withdraw(self.w3.toWei(amount, "ether")).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
