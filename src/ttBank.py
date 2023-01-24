@@ -56,14 +56,14 @@ class TTBank:
         """Returns the accounts details
 
         """
-        return self.contract.functions.viewAccount().call()
+        return self.contract.functions.viewAccount().call({"from": self.account})
 
-    def fetch_balance(self):
+    def fetch_account_balance(self):
         """Returns the accounts Test Token balance
         Returns:
             int: The Test Token amount
         """
-        return self.contract.functions.viewBalance().call()
+        return self.contract.functions.viewBalance().call({"from": self.account})
 
     def fetch_bank_balance(self):
         """Returns the Test Token balance within TTBank.sol
@@ -71,7 +71,7 @@ class TTBank:
         Returns:
             int: The Test Token amount
         """
-        return self.contract.functions.bankBalance().call()
+        return self.contract.functions.bankBalance().call({"from": self.account})
 
     def open_account(self, starting_balance: int):
         """Allows the account to open an account with TTBank and make an initial deposit
@@ -93,7 +93,11 @@ class TTBank:
             amount (int): The amount of Test Tokens the account wants to deposit into their account balance
 
         """
-        return self.contract.functions.deposit(self.w3.toWei(amount, "ether")).transact({"from": self.account})
+        return self.contract.functions.deposit(self.w3.toWei(amount, "ether")).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
 
     def withdraw(self, amount: int):
         """Allows the signer to withdraw a specified amount Test Tokens from their bank account
@@ -102,4 +106,9 @@ class TTBank:
             amount (int): The amount of Test Tokens to withdraw from the account
 
         """
-        return self.contract.functions.withdraw(self.w3.toWei(amount, "ether")).transact({"from": self.account})
+
+        return self.contract.functions.withdraw(self.w3.toWei(amount, "ether")).build_transaction({
+            "chainId": self.network_id,
+            "from": self.account,
+            "nonce": self.w3.eth.get_transaction_count(self.account)
+        })
