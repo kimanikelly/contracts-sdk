@@ -39,24 +39,6 @@ def ttBank(account0, token):
     addresses["token_local_address"] = token.address
     addresses["ttBank_local_address"] = deploy_ttBank().address
 
-    return TTBank(account0, 1337, "http://localhost:8545")
-
-
-def test_ttBank_instance(ttBank, token, account0):
-    assert(ttBank.account == account0)
-
-    assert(ttBank.network_id == 1337)
-
-    assert(ttBank.provider == "http://localhost:8545")
-
-    assert(ttBank.contract.address == ttBank.address)
-
-    assert(ttBank.fetch_owner() == account0)
-
-    assert(ttBank.fetch_token_address() == token.address)
-
-
-def test_open_account(ttBank, token, account0):
     mint_amount = 100
 
     fund_amount = 100
@@ -76,10 +58,31 @@ def test_open_account(ttBank, token, account0):
 
     w3.eth.send_raw_transaction(signed_fund_account_tx.rawTransaction)
 
+    ttBank_instance = TTBank(account0, 1337, "http://localhost:8545")
+
     signed_approve_tx = w3.eth.account.sign_transaction(
-        token.approve(ttBank.address, starting_balance), private_key=account0_private_key)
+        token.approve(ttBank_instance.address, 1000), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_approve_tx.rawTransaction)
+
+    return ttBank_instance
+
+
+def test_ttBank_instance(ttBank, token, account0):
+    assert(ttBank.account == account0)
+
+    assert(ttBank.network_id == 1337)
+
+    assert(ttBank.provider == "http://localhost:8545")
+
+    assert(ttBank.contract.address == ttBank.address)
+
+    assert(ttBank.fetch_owner() == account0)
+
+    assert(ttBank.fetch_token_address() == token.address)
+
+
+def test_open_account(ttBank, account0):
 
     signed_open_account_tx = w3.eth.account.sign_transaction(
         ttBank.open_account(starting_balance), private_key=account0_private_key)
@@ -97,3 +100,16 @@ def test_open_account(ttBank, token, account0):
     on_chain_acct_balance = ttBank.fetch_account_balance()
 
     assert(on_chain_acct_balance == w3.toWei(starting_balance, "ether"))
+
+
+def test_deposit(ttBank, account0):
+
+    signed_open_account_tx = w3.eth.account.sign_transaction(
+        ttBank.open_account(starting_balance), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_open_account_tx.rawTransaction)
+
+    signed_deposit_tx = w3.eth.account.sign_transaction(
+        ttBank.deposit(10), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_deposit_tx.rawTransaction)
