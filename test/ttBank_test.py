@@ -5,13 +5,24 @@ from test.deploy import *
 from src.local_addresses import *
 import pytest
 
+approve_amount = 1000
 
+# The amount of Test Tokens to mint to Token.sol
 mint_amount = 200
 
+# The amount of Test Tokens allocated to account 0
 fund_amount = 100
 
+# The amount of Test Tokens transferred to TTBank through the open_account function
 starting_balance = 50
 
+# The amount of Test Tokens deposited to TTBank after the open_account function is invoked
+deposit_amount = 25
+
+# The amount of Test Tokens to withdraw from TTBank
+withdraw_amount = 10
+
+# The Ganache test account 0 private key
 account0_private_key = "0x76dc59c3f2cf8245cd3c191f0c40c72545bf361b8dd660276658e0e051294e45"
 
 
@@ -39,10 +50,6 @@ def ttBank(account0, token):
     addresses["token_local_address"] = token.address
     addresses["ttBank_local_address"] = deploy_ttBank().address
 
-    mint_amount = 100
-
-    fund_amount = 100
-
     signed_mint_tx = w3.eth.account.sign_transaction(
         token.mint(mint_amount), private_key=account0_private_key)
 
@@ -61,7 +68,7 @@ def ttBank(account0, token):
     ttBank_instance = TTBank(account0, 1337, "http://localhost:8545")
 
     signed_approve_tx = w3.eth.account.sign_transaction(
-        token.approve(ttBank_instance.address, 1000), private_key=account0_private_key)
+        token.approve(ttBank_instance.address, approve_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_approve_tx.rawTransaction)
 
@@ -110,6 +117,24 @@ def test_deposit(ttBank, account0):
     w3.eth.send_raw_transaction(signed_open_account_tx.rawTransaction)
 
     signed_deposit_tx = w3.eth.account.sign_transaction(
-        ttBank.deposit(10), private_key=account0_private_key)
+        ttBank.deposit(deposit_amount), private_key=account0_private_key)
 
     w3.eth.send_raw_transaction(signed_deposit_tx.rawTransaction)
+
+
+def test_withdraw(ttBank):
+
+    signed_open_account_tx = w3.eth.account.sign_transaction(
+        ttBank.open_account(starting_balance), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_open_account_tx.rawTransaction)
+
+    signed_deposit_tx = w3.eth.account.sign_transaction(
+        ttBank.deposit(deposit_amount), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_deposit_tx.rawTransaction)
+
+    signed_withdraw_tx = w3.eth.account.sign_transaction(
+        ttBank.withdraw(withdraw_amount), private_key=account0_private_key)
+
+    w3.eth.send_raw_transaction(signed_withdraw_tx.rawTransaction)
