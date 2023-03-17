@@ -80,7 +80,7 @@ class TTBank:
             amount (int): The amount of Test Tokens the account wants to deposit into their account balance
 
         """
-        return self.contract.functions.openAccount(self.w3.toWei(starting_balance, "ether")).build_transaction({
+        return self.contract.functions.openAccount(self.w3.to_wei(starting_balance, "ether")).build_transaction({
             "chainId": self.network_id,
             "from": self.account,
             "nonce": self.w3.eth.get_transaction_count(self.account)
@@ -93,7 +93,7 @@ class TTBank:
             amount (int): The amount of Test Tokens the account wants to deposit into their account balance
 
         """
-        return self.contract.functions.deposit(self.w3.toWei(amount, "ether")).build_transaction({
+        return self.contract.functions.deposit(self.w3.to_wei(amount, "ether")).build_transaction({
             "chainId": self.network_id,
             "from": self.account,
             "nonce": self.w3.eth.get_transaction_count(self.account)
@@ -107,7 +107,7 @@ class TTBank:
 
         """
 
-        return self.contract.functions.withdraw(self.w3.toWei(amount, "ether")).build_transaction({
+        return self.contract.functions.withdraw(self.w3.to_wei(amount, "ether")).build_transaction({
             "chainId": self.network_id,
             "from": self.account,
             "nonce": self.w3.eth.get_transaction_count(self.account)
