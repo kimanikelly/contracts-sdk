@@ -41,7 +41,7 @@ class Token:
          Returns:
              str: The owners Ethereum wallet address
         """
-        return self.contract.functions.owner().call()
+        return self.contract.functions.owner().call({"from": self.account})
 
     def fetch_name(self):
         """Returns the Token.sol name
@@ -49,7 +49,7 @@ class Token:
         Returns:
             str: ERC-20 name of Token.sol
         """
-        return self.contract.functions.name().call()
+        return self.contract.functions.name().call({"fron": self.account})
 
     def fetch_symbol(self):
         """Returns the Token.sol symbol
@@ -57,7 +57,7 @@ class Token:
         Returns:
             str: ERC-20 symbol of Token.sol
         """
-        return self.contract.functions.symbol().call()
+        return self.contract.functions.symbol().call({"from": self.account})
 
     def fetch_decimals(self):
         """Returns the Token.sol contract decimals
@@ -65,7 +65,7 @@ class Token:
         Returns:
             int: ERC-20 decimals of Token.sol
         """
-        return self.contract.functions.decimals().call()
+        return self.contract.functions.decimals().call({"from": self.account})
 
     def fetch_total_supply(self):
         """Returns the Token.sol contract total supply of minted tokens
@@ -74,7 +74,7 @@ class Token:
             int: Total minted ERC-20 tokens
         """
 
-        return self.contract.functions.totalSupply().call()
+        return self.contract.functions.totalSupply().call({"from": self.account})
 
     def fetch_balance_of(self, address: str):
         """Returns the Test Token balance of an Ethereum address
@@ -82,12 +82,12 @@ class Token:
         Returns:
             int: Test Token ERC-20 balance
         """
-        return self.contract.functions.balanceOf(address).call()
+        return self.contract.functions.balanceOf(address).call({"from": self.account})
 
     def fetch_fund_amount(self):
         """ The amount of ERC-20 tokens transferred to the account on `fund_account`
         """
-        return self.contract.functions.fundAmount().call()
+        return self.contract.functions.fundAmount().call({"from": self.account})
 
     def mint(self, amount: int):
         """ Creates and allocates ERC-20 tokens to Token.sol. This function
@@ -133,7 +133,7 @@ class Token:
         })
 
     def allowance(self, owner: str, spender: str):
-        return self.contract.functions.allowance(owner, spender).call()
+        return self.contract.functions.allowance(owner, spender).call({"from": self.account})
 
     def approve(self, spender: str, amount: int):
         return self.contract.functions.approve(spender, self.w3.toWei(amount, "ether")).build_transaction({
